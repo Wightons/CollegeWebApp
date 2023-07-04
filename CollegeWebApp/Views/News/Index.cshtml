@@ -1,0 +1,29 @@
+﻿@using CollegeWebApp.Models;
+@model List<NewsDTO>
+
+@if (ViewBag.IsPermit)
+{
+    <div class="row">
+        <a class="btn btn-success" asp-action="Add">Add news</a>
+    </div>
+}
+
+@foreach (var n in Model)
+{   
+    <div class="row">
+        <div class="card m-2">
+            <div class="card-header">
+                @n.Title
+            </div>
+            @if (ViewBag.IsPermit)
+            {
+                <div>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@n.Id">delete</a>
+                </div>
+            }
+            <div class="card-body">
+                <p>@n.Body</p>
+            </div>
+        </div>
+    </div>
+}

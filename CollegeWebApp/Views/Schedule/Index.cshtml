@@ -1,0 +1,58 @@
+﻿@using CollegeWebApp.Models;
+@if (ViewBag.Permit == true)
+{
+    <div class="row">
+        <h4>Groups Schedule managment</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <select id="groupSelect" class="form-control">
+                <option value="0">--Select Group--</option>
+                @foreach (var group in (List<GroupDTO>)ViewBag.GroupList)
+                {
+                    <option value="@group.Id">@group.GroupCode</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <a id="addBtn" class="btn btn-success m-3" asp-action="Add">add schedule</a>
+        </div>
+    </div>
+    <div class="row" id="scheduleContainer"></div>
+}
+else
+{
+    if (@ViewBag.NoScheduleMsg == null)
+    {   
+    <h4>Group: @ViewBag.GroupCode</h4>
+    <div class="row">
+        @Html.Raw(ViewBag.Schedule)
+        </div>
+    }
+    else
+    {
+        <h3>@ViewBag.NoScheduleMsg</h3>
+    }
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#groupSelect').on('change', function () {
+                var id = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("ItemSelected", "Schedule")',
+                    type: 'GET',
+                    data: { groupId: id },
+                    success: function (result) {
+                        if(id != 0){
+                          $('#scheduleContainer').html(result);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

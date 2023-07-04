@@ -1,0 +1,29 @@
+﻿@model dynamic
+@{
+    var pp = "data:image/jpeg;base64," + Model.ProfilePic;
+}
+<div class="row">
+    <div class="col-sm-3">
+        <img src="@pp" class="rounded-circle right" style="height: 200px" alt="you deleted the image cookie or the developer is retarded" />
+    </div>
+    <div class="col">
+        <a class="btn btn-warning" asp-action="Settings">Account Settings</a>
+        @if (ViewBag.IsPermit)
+        {   
+            <div>
+                <a class="btn btn-success mt-2" asp-action="UsersList">Users Managment</a>
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 mt-3">
+        <strong>@Model.Surname</strong>
+        <strong>@Model.FirstName</strong>
+        <strong>@Model.Patroymic</strong>
+        @if (@Model.GroupCode != null)
+        {
+            <p>Group: @Model.GroupCode</p>
+        }
+    </div>
+</div>  

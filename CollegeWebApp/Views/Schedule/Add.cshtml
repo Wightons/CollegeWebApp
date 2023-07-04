@@ -1,0 +1,27 @@
+﻿@using CollegeWebApp.Models;
+@{
+    ViewData["Title"] = "Add";
+}
+
+<div class="row">
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="form-label">groups</label>
+            <select name="groupSelect" class="form-control">
+                <option value="0">--Select Group--</option>
+                @foreach (var group in (List<GroupDTO>)ViewBag.GroupList)
+                {
+                    <option value="@group.Id">@group.GroupCode</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Excel</label>
+            <input class="form-control" type="file" accept=".xlsx" name="excelFile"/>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Ok"/>
+        </div>
+    </form>
+</div>
+

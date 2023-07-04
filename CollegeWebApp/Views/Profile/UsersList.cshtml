@@ -1,0 +1,85 @@
+﻿@using CollegeWebApp.BLL;
+@model IEnumerable<CollegeWebApp.Models.UserDTO>
+
+@{
+    ViewData["Title"] = "Users List";
+
+    Repository repos = ViewBag.Repos;
+
+    async Task<bool> check(int id)
+    {
+        var role = await repos.GetRoleByUserIdAsync(id);
+        if (role.RoleName == "God")
+        {
+            return true;
+        }
+        return false;
+    }
+
+}
+
+<h1>Users List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patronymic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patronymic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupId)
+            </td>
+            @if (!await check(item.Id))
+            {
+                <td>       
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                </td>
+            }
+            else
+            {
+                <td>-</td>
+            }
+            </tr>
+}
+    </tbody>
+</table>

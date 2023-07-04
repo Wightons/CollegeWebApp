@@ -1,0 +1,60 @@
+﻿@model CollegeWebApp.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 800px;
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        margin:auto;
+        width: 400px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: none;
+    }
+
+    .card-footer {
+        background-color: #f8f9fa;
+        border-top: none;
+    }
+</style>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Login</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email address</label>
+                <input asp-for="Email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" class="form-control" id="password" placeholder="Enter your password">
+            </div>
+            <div class="text-center">
+                <input type="submit" class="btn btn-primary" value="Login"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
